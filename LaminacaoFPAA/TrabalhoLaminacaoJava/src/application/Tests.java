@@ -8,85 +8,31 @@ import entities.Lamina;
 import entities.LeitorArquivo;
 
 public class Tests {
-
+//"src\\LaminacaoTeste4.txt"
 	public static void main(String args[]) {
-		List<Lamina> listaLamina = LeitorArquivo.leituraArquivoLista("src\\LaminacaoTeste1.txt");
-		int c1 = Backtracking.backtrackingRecursivo(listaLamina.get(0).getLargura(), 3, listaLamina);
-		// int c2 = Backtracking.backtrackingRecursivo(listaLamina.get(0).getLargura(),
-		// 2, listaLamina);
-		// int c3 = Backtracking.backtrackingRecursivo(listaLamina.get(0).getLargura(),
-		// 1, listaLamina);
-		System.out.println(c1);
-		// System.out.println(c2);
-		// System.out.println(c3);
-//		if (c3 <= c2 && c3 <= c2) {
-//			System.out.println(c3);
-//		} else if (c2 <= c1) {
-//			System.out.println(c2);
-//		} else {
-//			System.out.println(c1);
-//		}
+		//testaAlgGuloso();
+		//testaBackTracking();
+		testaProgDinamica();
 	}
 
 	public static void testaBackTracking() {
-		Lamina teste = LeitorArquivo.leituraArquivo("src\\LaminacaoTeste4.txt");
-		while (teste.getLargura() > 4) {
-			int melhorCusto = Integer.MAX_VALUE;
-			int caso = 1;
-			Lamina clone = teste.clone();
-			clone.reduzirLamina(1);
-			clone.reduzirLamina(1);
-			clone.reduzirLamina(1);
-			if (clone.getCustoTotal() <= melhorCusto) {
-				melhorCusto = clone.getCustoTotal();
-			}
-			clone = teste.clone();
-			clone.reduzirLamina(1);
-			clone.reduzirLamina(2);
-			if (clone.getCustoTotal() <= melhorCusto) {
-				melhorCusto = clone.getCustoTotal();
-				caso = 2;
-			}
-			clone = teste.clone();
-			clone.reduzirLamina(2);
-			clone.reduzirLamina(1);
-			if (clone.getCustoTotal() <= melhorCusto) {
-				melhorCusto = clone.getCustoTotal();
-				caso = 3;
-			}
-			clone = teste.clone();
-			clone.reduzirLamina(3);
-			if (clone.getCustoTotal() <= melhorCusto) {
-				melhorCusto = clone.getCustoTotal();
-				caso = 4;
-			}
+		List<Lamina> listaLamina = LeitorArquivo.leituraArquivoLista("src\\LaminacaoTeste4.txt");
+		System.out.println("Procurando valor via BackTracking");
+		int c1 = Backtracking.backtrackingRecursivo(listaLamina.get(0).getLargura(),
+				listaLamina.get(0).getCustoReducao3(), 3, listaLamina);
 
-			switch (caso) {
-			case 1:
-				teste.reduzirLamina(1);
-				teste.reduzirLamina(1);
-				teste.reduzirLamina(1);
-				System.out.println("Custo total = " + teste.getCustoTotal());
-				System.out.println("Largura = " + teste.getLargura());
-				break;
-			case 2:
-				teste.reduzirLamina(1);
-				teste.reduzirLamina(2);
-				System.out.println("Custo total = " + teste.getCustoTotal());
-				System.out.println("Largura = " + teste.getLargura());
-				break;
-			case 3:
-				teste.reduzirLamina(2);
-				teste.reduzirLamina(1);
-				System.out.println("Custo total = " + teste.getCustoTotal());
-				System.out.println("Largura = " + teste.getLargura());
-				break;
-			case 4:
-				teste.reduzirLamina(3);
-				System.out.println("Custo total = " + teste.getCustoTotal());
-				System.out.println("Largura = " + teste.getLargura());
-				break;
-			}
+		int c2 = Backtracking.backtrackingRecursivo(listaLamina.get(0).getLargura(),
+				listaLamina.get(0).getCustoReducao2(), 2, listaLamina);
+
+		int c3 = Backtracking.backtrackingRecursivo(listaLamina.get(0).getLargura(),
+				listaLamina.get(0).getCustoReducao1(), 1, listaLamina);
+		System.out.print("Melhor valor encontrado via backtracking:");
+		if (c3 <= c2 && c3 <= c1) {
+			System.out.println(c3);
+		} else if (c2 <= c1) {
+			System.out.println(c2);
+		} else {
+			System.out.println(c1);
 		}
 	}
 
